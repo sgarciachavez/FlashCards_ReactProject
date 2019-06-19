@@ -19,6 +19,15 @@ export function saveDeckTitle(title){
   AsyncStorage.mergeItem(FLASH_CARDS_KEY, JSON.stringify(title))
 }
 
+export function addCard(title, card){
+  return AsyncStorage.getItem(FLASH_CARDS_KEY)
+  .then((results) => {
+    const data = JSON.parse(results)
+    data[title].questions.push(card)
+    AsyncStorage.mergeItem(FLASH_CARDS_KEY, JSON.stringify(data))
+  })
+}
+
 export function getDeck(title){
   return AsyncStorage.getItem(FLASH_CARDS_KEY)
   //.then((decks) => JSON.parse(decks[title]))

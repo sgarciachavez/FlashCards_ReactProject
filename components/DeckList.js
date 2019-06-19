@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet } from 'react-native'
-import { getDecks } from '../utils/api'
+import { getDecks, setInitialDecks } from '../utils/api'
 import DeckItem from './DeckItem'
 import { withNavigationFocus } from 'react-navigation';
 
@@ -14,7 +14,9 @@ class DeckList extends Component{
       this.setState({ decks: JSON.parse(decks)})
     })
   }
-
+  componentDidMount(){
+    //setInitialDecks()
+  }
   render(){
     const decks = this.state.decks
 
@@ -38,6 +40,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     marginTop: 10,
+    justifyContent: 'space-between',
+    marginLeft: 7.5,
+    marginRight: 7.5,
   }
 })
 

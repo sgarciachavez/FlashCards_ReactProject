@@ -13,12 +13,12 @@ export default class DeckItem extends React.Component {
   render(){
     const deck = this.props.deck
     return (
-      <View style={styles.container}>
-        <TouchableOpacity onPress={this.onPress}>
+      <TouchableOpacity onPress={this.onPress}>
+        <View style={styles.container} >
           <Text style={{color: white, fontWeight: 'bold', fontSize: 18}}>{deck.title}</Text>
           <Text style={{color: white }}>{deck.questions.length} cards</Text>
-        </TouchableOpacity>
-      </View>
+        </View>
+      </TouchableOpacity>
     )
   }
 }
@@ -31,8 +31,8 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     marginRight: 15,
     paddingTop: 3,
-    width: 100,
-    height: 50,
+    width: 150,
+    height: 100,
     borderRadius: 5,
     color: blue,
     shadowColor: '#000',

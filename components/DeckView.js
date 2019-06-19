@@ -2,20 +2,22 @@ import React from 'react'
 import { View, Text,TouchableOpacity, StyleSheet, Alert } from 'react-native'
 import { getDeck, deleteDeck } from '../utils/api'
 import { ltblue, red, green, white } from '../utils/colors'
-import { StackActions } from 'react-navigation'
+import { StackActions, withNavigationFocus } from 'react-navigation'
 
-export default class DeckView extends React.Component {
+
+class DeckView extends React.Component {
   state = {
     deck: null,
   }
 
   componentDidMount(){
-    const title = this.props.navigation.getParam('title')
-    if( title !== null){
-      getDeck(title).then((deck) => {
-        this.setState({ deck: deck})
-      })
-    }
+    // const title = this.props.navigation.getParam('title')
+    // if( title !== null){
+    //   getDeck(title).then((deck) => {
+    //     this.setState({ deck: deck})
+    //   })
+    // }
+    this.fetchDeck()
   }
 
   addCard = () => {
@@ -40,7 +42,6 @@ export default class DeckView extends React.Component {
   }
 
   removeDeck = () => {
-
     Alert.alert(
       'Delete Deck?',
       `Are you sure you want to delete deck: "${this.state.deck.title}"` ,
@@ -53,7 +54,6 @@ export default class DeckView extends React.Component {
   }
 
   handleDeleteDeck = () => {
-
     deleteDeck(this.state.deck.title)
 
     const popAction = StackActions.pop({
@@ -62,10 +62,22 @@ export default class DeckView extends React.Component {
     this.props.navigation.dispatch(popAction)
   }
 
+  fetchDeck = () => {
+    const title = this.props.navigation.getParam('title')
+    if( title !== null){
+      getDeck(title).then((deck) => {
+        this.setState({ deck: deck})
+      })
+    }
+  }
   render(){
     const deck = this.state.deck
     const title = this.props.navigation.getParam('title')
     const number = deck !== null ? deck.questions.length : 0
+
+    if(this.props.isFocused){
+      this.fetchDeck()
+    }
 
     return(
       <View style={styles.container}>
@@ -123,3 +135,5 @@ const styles = StyleSheet.create({
     color: 'white'
   }
 })
+
+export default withNavigationFocus(DeckView)
