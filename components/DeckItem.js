@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text,TouchableOpacity, StyleSheet, Alert } from 'react-native'
 import { green, white, blue, orange, ltblue } from '../utils/colors'
 import { StackActions, NavigationActions } from 'react-navigation'
-import NavigationService from './NavigationService';
+import NavigationService from './NavigationService'
 
 export default class DeckItem extends React.Component {
 

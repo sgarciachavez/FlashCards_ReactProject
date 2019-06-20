@@ -2,8 +2,10 @@ import React, { Component } from 'react'
 import { Text, View, StyleSheet, TouchableOpacity, Animated, Alert } from 'react-native'
 import { getDeck } from '../utils/api'
 import { ltblue, pink, red, green, yellow } from '../utils/colors'
+import { StackActions, NavigationActions } from 'react-navigation'
+import NavigationService from './NavigationService'
 
-//This Animation code came from an example provided by:
+//This Animation code (flipCard)came from an example provided by:
 //https://codedaily.io/screencasts/12/Create-a-Flip-Card-Animation-with-React-Native
 //https://github.com/browniefed/examples.git
 
@@ -41,42 +43,44 @@ export default class Card extends Component{
     }
   }
 
-  nextQuestion(){
+  next = () => {
     if((this.state.index + 1) < this.state.deck.questions.length){
       this.flipCard()
-      this.setState({
-        flag: 'Question',
-        index: this.state.index + 1
+      this.setState((state) => {
+        return{
+          flag: 'Question',
+          index: this.state.index + 1
+        }
       })
-      //this.setState({index: this.state.index + 1})
     }else{
-        Alert.alert(`${this.state.correct} correct answers!`)
-    }
-  }
-  response(answer) {
-    //this.setState({index: this.state.index + 1})
-    if(answer === 'no'){
-      Alert.alert(
-        `Incorrect Answer`,
-        `❌  You'll get it next time!` ,
-        [
-          {text: 'OK', onPress: () => this.nextQuestion()},
-        ],
-        {cancelable: false},
-      )
-    }else{
-      Alert.alert(
-        `Correct Answer`,
-        `🏆  😎  Great!!` ,
-        [
-          {text: 'OK', onPress: () => this.nextQuestion()},
-        ],
-        {cancelable: false},
-      )
-      this.setState({correct: this.state.correct + 1})
-    }
+      const popAction = StackActions.pop({
+        n: 1,
+      })
 
+      this.props.navigation.dispatch(popAction)
+      const pushAction = StackActions.push({
+        routeName: 'QuizResults',
+        params: {
+          score: this.state.correct,
+          number: this.state.deck.questions.length
+        },
+      })
+
+      this.props.navigation.dispatch(pushAction)
+
+    }
   }
+
+  response(answer) {
+    if(answer === 'yes'){
+      this.setState((state) => {
+        return {correct: state.correct + 1}
+      }, this.next)
+    }else{
+      this.next()
+    }
+  }
+
   flipCard() {
     if (this.value >= 90) {
         Animated.spring(this.animatedValue,{
@@ -98,7 +102,7 @@ export default class Card extends Component{
     if(this.state.flag === 'Question'){
       return(
         <TouchableOpacity onPress={() => this.flipCard()}>
-          <Text style={styles.text}>↩️  Flip card!</Text>
+          <Text style={styles.text}>↩️  Flip card to see the answer!</Text>
         </TouchableOpacity>
       )
     }else{
@@ -136,8 +140,9 @@ export default class Card extends Component{
         <View style={styles.container}>
           <Text style={styles.title}>{title}</Text>
           <Text style={styles.text}>{this.state.deck !== null &&
-              `${this.state.flag} ${this.state.index + 1} of ${this.state.deck.questions.length}`}</Text>
+              `\n\n${this.state.flag} ${this.state.index + 1} of ${this.state.deck.questions.length}`}</Text>
           <View style={styles.cardContainer}>
+
             <Animated.View style={[frontAnimatedStyle, styles.flipCard]}>
               <Text style={styles.flipText}>
                 {this.state.deck !== null && this.state.deck.questions[this.state.index].question}

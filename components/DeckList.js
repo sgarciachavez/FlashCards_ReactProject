@@ -14,9 +14,7 @@ class DeckList extends Component{
       this.setState({ decks: JSON.parse(decks)})
     })
   }
-  componentDidMount(){
-    //setInitialDecks()
-  }
+  
   render(){
     const decks = this.state.decks
 

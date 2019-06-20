@@ -4,7 +4,8 @@ import DeckList from './DeckList'
 import AddDeck from './AddDeck'
 import DeckView from './DeckView'
 import AddCard from './AddCard'
-import QuizQuestion from './QuizQuestion'
+import Card from './Card'
+import QuizResults from './QuizResults'
 
 import { createBottomTabNavigator, createStackNavigator, createAppContainer } from 'react-navigation'
 import { Ionicons, MaterialIcons } from '@expo/vector-icons'
@@ -54,8 +55,11 @@ const Stack = createStackNavigator({
     screen: AddCard
   },
   Quiz: {
-    screen: QuizQuestion
+    screen: Card
   },
+  QuizResults: {
+    screen: QuizResults
+  }
 
 }, {initialRouteName: 'Home',})
 
