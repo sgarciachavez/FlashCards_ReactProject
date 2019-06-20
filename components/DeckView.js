@@ -31,6 +31,16 @@ class DeckView extends React.Component {
     this.props.navigation.dispatch(pushAction);
   }
   takeQuiz = () => {
+    if(this.state.deck.questions.length < 1){
+      Alert.alert(
+        'Empty Deck',
+        `You cannot take this quiz because there are no cards in the deck` ,
+        [
+          {text: 'OK', },
+        ],
+        {cancelable: false},
+      )
+    }else{
     const pushAction = StackActions.push({
       routeName: 'Quiz',
       params: {
@@ -38,7 +48,8 @@ class DeckView extends React.Component {
       },
     })
 
-    this.props.navigation.dispatch(pushAction);
+    this.props.navigation.dispatch(pushAction)
+    }
   }
 
   removeDeck = () => {
