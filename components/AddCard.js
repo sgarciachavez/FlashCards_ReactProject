@@ -102,7 +102,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     flexDirection: 'column',
-    //justifyContent: 'space-between',
     marginTop: 20,
     marginBottom: 20,
   },
@@ -121,7 +120,6 @@ const styles = StyleSheet.create({
   },
   textInput: {
     textAlignVertical: "top",
-
     borderWidth: 2,
     borderRadius: 5,
     width: 350,
@@ -140,4 +138,5 @@ const styles = StyleSheet.create({
     width: 300,
   }
 })
+
 export default AddCard

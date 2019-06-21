@@ -9,28 +9,15 @@ import { allcolors } from '../utils/colors'
 class AddDeck extends React.Component {
   state = {
     title: '',
-    //colors: allcolors,
     color: '#757575'
   }
 
-  componentDidMount(){
-    // this.setState((state) => {
-    //   return {colors: allcolors}
-    // })
-  }
-
-  //selectColor = colors => this.setState({ colors })
   selectColor = (color) => {
     this.setState({color: color})
   }
 
   onPress = () => {
     if(this.state.title !== ''){
-
-      // let selectedButton = this.state.colors.find(e => e.selected == true)
-      // let label = selectedButton ? selectedButton.label : "Gray"
-      //   let  colorValue = selectedButton ? selectedButton.value : '#757575'
-
 
       let title = {
         [this.state.title] : {
@@ -41,7 +28,6 @@ class AddDeck extends React.Component {
       }
       saveDeckTitle(title)
       this.goHome()
-
 
     }else{
       Alert.alert(

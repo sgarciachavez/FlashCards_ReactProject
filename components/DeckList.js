@@ -42,7 +42,6 @@ class DeckList extends Component{
         </TouchableOpacity>
       </View>
     )
-
   }
 
   handleDeleteAll = () => {

@@ -11,12 +11,6 @@ class DeckView extends React.Component {
   }
 
   componentDidMount(){
-    // const title = this.props.navigation.getParam('title')
-    // if( title !== null){
-    //   getDeck(title).then((deck) => {
-    //     this.setState({ deck: deck})
-    //   })
-    // }
     this.fetchDeck()
   }
 

@@ -6,7 +6,6 @@ import DeckView from './DeckView'
 import AddCard from './AddCard'
 import Card from './Card'
 import QuizResults from './QuizResults'
-
 import { createBottomTabNavigator, createStackNavigator, createAppContainer } from 'react-navigation'
 import { Ionicons, MaterialIcons } from '@expo/vector-icons'
 
@@ -33,7 +32,7 @@ const Tabs = createBottomTabNavigator({
 Tabs.navigationOptions = ({ navigation }) => {
   const { routeName } = navigation.state.routes[navigation.state.index];
   let title = routeName
-  // You can do whatever you like here to pick the title based on the route name
+  
   if(routeName === 'Add Deck'){
     title = 'Add New Deck'
   }

@@ -30,7 +30,6 @@ export function addCard(title, card){
 
 export function getDeck(title){
   return AsyncStorage.getItem(FLASH_CARDS_KEY)
-  //.then((decks) => JSON.parse(decks[title]))
   .then((results) => {
     decks = JSON.parse(results)
     return decks[title]

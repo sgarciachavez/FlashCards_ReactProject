@@ -25,7 +25,6 @@ export default class DeckItem extends React.Component {
 
 const styles = StyleSheet.create({
   container:{
-
     alignItems: 'center',
     marginTop: 15,
     marginLeft: 15,

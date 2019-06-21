@@ -62,7 +62,6 @@ export default class Card extends Component{
         routeName: 'QuizResults',
         params: {
           score: this.state.correct,
-          //number: this.state.deck.questions.length
           deck: this.state.deck
         },
       })

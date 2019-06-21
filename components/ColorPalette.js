@@ -14,31 +14,26 @@ class ColorPalette extends Component{
     this.props.selectColor(colorValue)
   }
 
-  //onPress = colors => this.setState({ colors })
   render(){
-     //let selectedButton = this.state.colors.find(e => e.selected == true)
-    // let label = selectedButton ? selectedButton.label : this.state.colors[0].label
-        //selectedButton = selectedButton ? selectedButton.value : this.state.colors[0].label
-        let selectedButton = this.state.colors.find(e => e.selected == true)
-        let label = selectedButton ? selectedButton.label : 'Gray'
-        let colorValue = selectedButton ? selectedButton.value : '#757575'
+    let selectedButton = this.state.colors.find(e => e.selected == true)
+    let label = selectedButton ? selectedButton.label : 'Gray'
+    let colorValue = selectedButton ? selectedButton.value : '#757575'
 
-        return (
-          <View style={styles.container}>
+    return (
+      <View style={styles.container}>
 
-          <TouchableOpacity style={[styles.button, {backgroundColor: colorValue}]}>
-            <Text style={[styles.valueText, ]}>{label}</Text>
-          </TouchableOpacity>
+      <TouchableOpacity style={[styles.button, {backgroundColor: colorValue}]}>
+        <Text style={[styles.valueText, ]}>{label}</Text>
+      </TouchableOpacity>
 
-            <View>
-                <RadioGroup
-                  radioButtons={this.state.colors}
-                  onPress={this.onPress}
-                  //onPress={this.props.selectColor}
-                  flexDirection='column'/>
-            </View>
-          </View>
-        )
+      <View>
+        <RadioGroup
+          radioButtons={this.state.colors}
+          onPress={this.onPress}
+          flexDirection='column'/>
+        </View>
+      </View>
+    )
   }
 }
 
@@ -62,4 +57,5 @@ const styles = StyleSheet.create({
       marginRight: 30
     }
 })
+
 export default ColorPalette

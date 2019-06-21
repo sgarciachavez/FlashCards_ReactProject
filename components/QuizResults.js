@@ -23,10 +23,8 @@ class QuizResults extends Component{
 
   render(){
     const score = this.props.navigation.getParam('score')
-    //const number = this.props.navigation.getParam('number')
     const deck = this.props.navigation.getParam('deck')
     const number = deck.questions.length
-
     const percent = Math.round((score / number) * 100)
 
     return(
@@ -45,7 +43,6 @@ class QuizResults extends Component{
           <Text style={[styles.text, {color: 'red'}]}>{score} / {number}</Text>
         </View>
         <View style={styles.buttonContainer}>
-
           <TouchableOpacity style={[styles.button, {backgroundColor: green}]} onPress={this.gotoDeck}>
             <Text style={styles.buttonText}>Deck View</Text>
           </TouchableOpacity>
@@ -92,4 +89,5 @@ const styles = StyleSheet.create({
     color: 'white'
   }
 })
+
 export default QuizResults
