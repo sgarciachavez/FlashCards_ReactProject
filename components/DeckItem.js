@@ -1,24 +1,59 @@
 import React from 'react';
-import { View, Text,TouchableOpacity, StyleSheet, Alert } from 'react-native'
+import { View, Text,TouchableOpacity, TouchableWithoutFeedback,
+    StyleSheet, Alert, Animated, Easing } from 'react-native'
 import { green, white, blue, orange, ltblue } from '../utils/colors'
 import { StackActions, NavigationActions } from 'react-navigation'
 import NavigationService from './NavigationService'
 
+
 export default class DeckItem extends React.Component {
 
-  onPress = () => {
-    NavigationService.navigate('DeckView', { title: this.props.deck.title })
+  componentWillMount(){
+    this.rotateValue = new Animated.Value(0)
   }
+
+  onPress(){
+
+
+        //cardAction();
+    //NavigationService.navigate('DeckView', { title: this.props.deck.title })
+  }
+
+
 
   render(){
     const deck = this.props.deck
+
+     let rotation = this.rotateValue.interpolate({
+       inputRange: [0,1],
+       outputRange: ["0deg", "360deg"]
+     })
+    let transformStyle = {... styles.container, backgroundColor: deck.color, transform: [{rotate: rotation}]}
+
     return (
-      <TouchableOpacity onPress={this.onPress}>
-        <View style={[styles.container, {backgroundColor: deck.color}]} >
+      <TouchableWithoutFeedback
+      onPressIn={() => {
+        Animated.timing(this.rotateValue, {
+          toValue: 1,
+          duration: 700,
+          easing: Easing.linear
+        }).start();
+
+      }}
+      onPressOut={() => {
+        Animated.timing(this.rotateValue, {
+          toValue: 0,
+          duration: 350,
+          easing: Easing.linear
+        }).start();
+        NavigationService.navigate('DeckView', { title: this.props.deck.title })
+      }}>
+
+        <Animated.View style={transformStyle} >
           <Text style={{color: white, fontWeight: 'bold', fontSize: 18}}>{deck.title}</Text>
           <Text style={{color: white }}>{deck.questions.length} cards</Text>
-        </View>
-      </TouchableOpacity>
+        </Animated.View>
+      </TouchableWithoutFeedback>
     )
   }
 }
@@ -42,5 +77,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.30,
     shadowRadius: 4.65,
     elevation: 8,
+    //backgroundColor: this.props.deck.color
   },
 })

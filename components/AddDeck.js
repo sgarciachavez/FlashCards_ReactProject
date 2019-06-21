@@ -27,7 +27,7 @@ class AddDeck extends React.Component {
         }
       }
       saveDeckTitle(title)
-      this.goHome()
+      this.gotoDeckView()
 
     }else{
       Alert.alert(
@@ -41,13 +41,21 @@ class AddDeck extends React.Component {
     }
   }
 
-  goHome = () => {
-    this.props.navigation.dispatch(StackActions.reset({
-              index: 0,
-              actions: [
-                NavigationActions.navigate({ routeName: 'Home' })
-              ],
-            }))
+  gotoDeckView = () => {
+
+    const resetAction = StackActions.reset({
+      index: 1,
+      actions: [
+        NavigationActions.navigate({ routeName: 'Home' }),
+        NavigationActions.navigate({
+          routeName: 'DeckView',
+          params: {title: this.state.title }
+        })
+      ]
+    });
+
+    this.props.navigation.dispatch(resetAction);
+
   }
 
   render(){
@@ -62,9 +70,9 @@ class AddDeck extends React.Component {
               placeholder='Deck title'
               onChangeText={(title) => this.setState({title})}
               value={this.state.title}
-              maxLength={20}/>
-              <Text style={{marginBottom: 10}}>Max length is 20 chars</Text>
-              <Text style={{marginBottom: 5}}>Select a color for your deck:</Text>
+              maxLength={40}/>
+              <Text style={{marginBottom: 10}}>Max length is 40 chars</Text>
+              <Text style={{marginBottom: 5}}>Select a color for your deck and theme</Text>
             </View>
             <ColorPalette selectColor={this.selectColor}/>
             <TouchableOpacity style={styles.button} onPress={this.onPress}>
@@ -94,7 +102,7 @@ const styles = StyleSheet.create({
     borderColor: 'blue',
     borderWidth: 2,
     borderRadius: 5,
-    width: 350,
+    width: 320,
     marginTop: 10,
     fontWeight: 'bold',
     fontSize: 18,
