@@ -27,7 +27,7 @@ const Tabs = createBottomTabNavigator({
       tabBarIcon: ({tintColor}) =>
         <MaterialIcons name='add-box' size={30} color={tintColor} />
     }
-  }
+  },
 })
 
 Tabs.navigationOptions = ({ navigation }) => {
@@ -50,15 +50,27 @@ const Stack = createStackNavigator({
   },
   DeckView: {
     screen: DeckView,
+    navigationOptions:{
+      title: "Deck Options",
+    }
   },
   AddCard: {
-    screen: AddCard
+    screen: AddCard,
+    navigationOptions:{
+      title: "Add Card",
+    }
   },
   Quiz: {
-    screen: Card
+    screen: Card,
+    navigationOptions:{
+      title: "Quiz",
+    }
   },
   QuizResults: {
-    screen: QuizResults
+    screen: QuizResults,
+    navigationOptions:{
+      title: "Quiz Results",
+    }
   }
 
 }, {initialRouteName: 'Home',})

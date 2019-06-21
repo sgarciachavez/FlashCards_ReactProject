@@ -62,7 +62,8 @@ export default class Card extends Component{
         routeName: 'QuizResults',
         params: {
           score: this.state.correct,
-          number: this.state.deck.questions.length
+          //number: this.state.deck.questions.length
+          deck: this.state.deck
         },
       })
 
@@ -135,15 +136,16 @@ export default class Card extends Component{
     }
 
     const title = this.props.navigation.getParam('title')
+    const color = this.state.deck ? this.state.deck.color : 'blue'
 
     return (
         <View style={styles.container}>
-          <Text style={styles.title}>{title}</Text>
+          <Text style={[styles.title, {color: color}]}>{title}</Text>
           <Text style={styles.text}>{this.state.deck !== null &&
               `\n\n${this.state.flag} ${this.state.index + 1} of ${this.state.deck.questions.length}`}</Text>
           <View style={styles.cardContainer}>
 
-            <Animated.View style={[frontAnimatedStyle, styles.flipCard]}>
+            <Animated.View style={[frontAnimatedStyle, styles.flipCard, {backgroundColor: color}]}>
               <Text style={styles.flipText}>
                 {this.state.deck !== null && this.state.deck.questions[this.state.index].question}
               </Text>
@@ -174,11 +176,11 @@ const styles = StyleSheet.create({
     height: 200,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: ltblue,
     backfaceVisibility: 'hidden',
+    borderRadius: 8
   },
   flipCardBack: {
-    backgroundColor: pink,
+    backgroundColor: 'black',
     position: "absolute",
     top: 0,
   },
@@ -192,7 +194,6 @@ const styles = StyleSheet.create({
     marginTop: 30,
     fontWeight: 'bold',
     fontSize: 30,
-    color: 'blue'
   },
   yesno: {
     flex: 1,
@@ -205,10 +206,11 @@ const styles = StyleSheet.create({
     color: 'blue'
   },
   button: {
-    marginTop: 30,
+    margin: 30,
     height: 50,
     width: 50,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    borderRadius: 5,
   }
 })

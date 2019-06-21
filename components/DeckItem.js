@@ -14,7 +14,7 @@ export default class DeckItem extends React.Component {
     const deck = this.props.deck
     return (
       <TouchableOpacity onPress={this.onPress}>
-        <View style={styles.container} >
+        <View style={[styles.container, {backgroundColor: deck.color}]} >
           <Text style={{color: white, fontWeight: 'bold', fontSize: 18}}>{deck.title}</Text>
           <Text style={{color: white }}>{deck.questions.length} cards</Text>
         </View>
@@ -25,7 +25,7 @@ export default class DeckItem extends React.Component {
 
 const styles = StyleSheet.create({
   container:{
-    backgroundColor: ltblue,
+
     alignItems: 'center',
     marginTop: 15,
     marginLeft: 15,

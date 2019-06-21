@@ -11,3 +11,62 @@ export const ltblue = '#34AADC'
 export const red = '#FF3B30'
 export const yellow = '#FFCC00'
 export const green = '#4CD964'
+
+export const allColors = [
+      {
+        label: 'Gray',
+        value: gray,
+        color: gray,
+        size: 25,
+        selected: true,
+      },
+      {
+        label: 'Blue',
+        value: blue,
+        color: blue,
+        size: 25,
+      },
+      {
+        label: 'Purple',
+        value: lightPurp,
+        color: lightPurp,
+        size: 25,
+      },
+      {
+        label: 'Pink',
+        value: pink,
+        color: pink,
+        size: 25,
+      },
+      {
+        label: 'Orange',
+        value: orange,
+        color: orange,
+        size: 25,
+      },
+      {
+        label: 'Lt Blue',
+        value: ltblue,
+        color: ltblue,
+        size: 25,
+      },
+      {
+        label: 'Red',
+        value: red,
+        color: red,
+        size: 25,
+      },
+      {
+        label: 'Yellow',
+        value: yellow,
+        color: yellow,
+        size: 25,
+      },
+      {
+        label: 'Green',
+        value: green,
+        color: green,
+        size: 25,
+      },
+
+  ]

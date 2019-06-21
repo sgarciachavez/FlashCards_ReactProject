@@ -23,13 +23,16 @@ class QuizResults extends Component{
 
   render(){
     const score = this.props.navigation.getParam('score')
-    const number = this.props.navigation.getParam('number')
+    //const number = this.props.navigation.getParam('number')
+    const deck = this.props.navigation.getParam('deck')
+    const number = deck.questions.length
 
     const percent = Math.round((score / number) * 100)
 
     return(
       <View style={styles.container}>
-        <View>
+        <View style={{alignItems: 'center'}}>
+          <Text style={[styles.title, {color: deck.color}]}>{deck.title}</Text>
           <Text style={styles.title}>Your Quiz Results!</Text>
         </View>
         <View>
@@ -65,7 +68,6 @@ const styles = StyleSheet.create({
     marginTop: 30,
     fontWeight: 'bold',
     fontSize: 30,
-    color: 'blue',
     marginBottom: 30,
   },
   text: {

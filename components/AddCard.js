@@ -11,8 +11,10 @@ class AddCard extends Component{
   }
   componentDidMount(){
     const title = this.props.navigation.getParam('title')
+    const color = this.props.navigation.getParam('color')
     this.setState({
-      title: title !== null ? title : ''
+      title: title !== null ? title : '',
+      color: color !== null ? color : 'blue'
     })
   }
   onPress = () => {
@@ -57,17 +59,18 @@ class AddCard extends Component{
   }
 
   render(){
+    const color = this.state.color ? this.state.color : 'blue'
     return(
       <DismissKeyboard>
         <View style={styles.container}>
           <View style={{alignItems: 'center'}}>
-            <Text style={styles.text}>Add card</Text>
-            <Text style={styles.title}>{this.state.title}</Text>
+
+            <Text style={[styles.title, {color: color }]}>{this.state.title}</Text>
           </View>
 
             <View style={{width: 350}}>
               <TextInput
-                style={[styles.textInput, {height: 60}]}
+                style={[styles.textInput, {height: 60, borderColor: color}]}
                 placeholder='Question'
                 onChangeText={(question) => this.setState({question: question})}
                 multiline={true}
@@ -76,7 +79,7 @@ class AddCard extends Component{
             </View>
             <View style={{width: 350}}>
               <TextInput
-                style={[styles.textInput, {height: 100}]}
+                style={[styles.textInput, {height: 100, borderColor: color}]}
                 placeholder='Answer'
                 onChangeText={(answer) => this.setState({answer: answer})}
                 multiline={true}
@@ -85,7 +88,7 @@ class AddCard extends Component{
             </View>
 
           <View>
-            <TouchableOpacity style={styles.button} onPress={this.onPress}>
+            <TouchableOpacity style={[styles.button, {backgroundColor: color}]} onPress={this.onPress}>
               <Text style={[styles.buttonText, {color: 'white'}]}> Submit </Text>
             </TouchableOpacity>
           </View>
@@ -106,7 +109,6 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
     fontSize: 30,
-    color: 'blue',
     marginTop: 15,
   },
   text: {
@@ -119,7 +121,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     textAlignVertical: "top",
-    borderColor: 'blue',
+
     borderWidth: 2,
     borderRadius: 5,
     width: 350,
@@ -131,7 +133,6 @@ const styles = StyleSheet.create({
   },
   button : {
     alignItems: 'center',
-    backgroundColor: 'blue',
     height: 50,
     justifyContent: 'center',
     borderRadius: 8,

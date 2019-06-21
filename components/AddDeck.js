@@ -1,19 +1,41 @@
 import React from 'react'
-import { Text, View, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native'
+import { Text, View, StyleSheet, TextInput, TouchableOpacity, Alert, Platform,ScrollView } from 'react-native'
 import { StackActions, NavigationActions } from 'react-navigation'
 import { saveDeckTitle } from '../utils/api'
 import DismissKeyboard from './DismissKeyboard'
+import ColorPalette from './ColorPalette'
+import { allcolors } from '../utils/colors'
 
 class AddDeck extends React.Component {
   state = {
-    title: ''
+    title: '',
+    //colors: allcolors,
+    color: '#757575'
+  }
+
+  componentDidMount(){
+    // this.setState((state) => {
+    //   return {colors: allcolors}
+    // })
+  }
+
+  //selectColor = colors => this.setState({ colors })
+  selectColor = (color) => {
+    this.setState({color: color})
   }
 
   onPress = () => {
     if(this.state.title !== ''){
+
+      // let selectedButton = this.state.colors.find(e => e.selected == true)
+      // let label = selectedButton ? selectedButton.label : "Gray"
+      //   let  colorValue = selectedButton ? selectedButton.value : '#757575'
+
+
       let title = {
         [this.state.title] : {
           title: this.state.title,
+          color: this.state.color,
           questions: []
         }
       }
@@ -45,8 +67,9 @@ class AddDeck extends React.Component {
   render(){
     return (
       <DismissKeyboard>
+      <ScrollView style={{flex: 1}} contentContainerStyle={{flexGrow: 1}} scrollEnabled={true}>
         <View style={styles.container}>
-          <Text style={[styles.text, {color: 'blue'}]}>{`\n\nWhat is the title of \n your new deck?`}</Text>
+          <Text style={[styles.text, {color: 'blue'}]}>What is the title of your new deck?</Text>
           <View style={{alignItems: 'center'}}>
             <TextInput
               style={styles.textInput}
@@ -54,12 +77,15 @@ class AddDeck extends React.Component {
               onChangeText={(title) => this.setState({title})}
               value={this.state.title}
               maxLength={20}/>
-              <Text>Max length is 20 chars</Text>
+              <Text style={{marginBottom: 10}}>Max length is 20 chars</Text>
+              <Text style={{marginBottom: 5}}>Select a color for your deck:</Text>
             </View>
+            <ColorPalette selectColor={this.selectColor}/>
             <TouchableOpacity style={styles.button} onPress={this.onPress}>
               <Text style={[styles.text, {color: 'white'}]}> Submit </Text>
             </TouchableOpacity>
         </View>
+        </ScrollView>
       </DismissKeyboard>
     )
   }
@@ -67,15 +93,15 @@ class AddDeck extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 40,
     alignItems: 'center',
     flex: 1,
     flexDirection: 'column',
-    
+    justifyContent: 'flex-start',
+    paddingTop: 30
   },
   text: {
     fontWeight: 'bold',
-    fontSize: 30,
+    fontSize: 20,
   },
   textInput: {
     height: 50,
@@ -83,11 +109,11 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 5,
     width: 350,
-    marginTop: 60,
+    marginTop: 10,
     fontWeight: 'bold',
     fontSize: 18,
     padding: 5,
-    marginBottom: 10,
+    marginBottom: 5,
   },
   button : {
     alignItems: 'center',
@@ -95,8 +121,9 @@ const styles = StyleSheet.create({
     height: 50,
     justifyContent: 'center',
     borderRadius: 8,
-    margin: 30,
     width: 300,
+    marginTop: 20,
+    marginBottom: 20
   }
 })
 

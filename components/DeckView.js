@@ -25,6 +25,7 @@ class DeckView extends React.Component {
       routeName: 'AddCard',
       params: {
         title: this.state.deck.title,
+        color: this.state.deck.color,
       },
     })
 
@@ -44,7 +45,7 @@ class DeckView extends React.Component {
     const pushAction = StackActions.push({
       routeName: 'Quiz',
       params: {
-        title: this.state.deck.title,
+        title: this.state.deck.title
       },
     })
 
@@ -93,7 +94,7 @@ class DeckView extends React.Component {
     return(
       <View style={styles.container}>
         <View style={{alignItems: 'center'}}>
-        <Text style={styles.title}>{title}</Text>
+        <Text style={[styles.title, {color: deck !== null ? deck.color : 'blue'}]}>{title}</Text>
         <Text style={{fontSize: 18}}>{number} cards</Text>
         </View>
         <View style={styles.buttonContainer}>
@@ -127,7 +128,6 @@ const styles = StyleSheet.create({
     marginTop: 30,
     fontWeight: 'bold',
     fontSize: 30,
-    color: 'blue'
   },
   buttonContainer: {
     width:300,
