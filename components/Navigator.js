@@ -32,7 +32,7 @@ const Tabs = createBottomTabNavigator({
 Tabs.navigationOptions = ({ navigation }) => {
   const { routeName } = navigation.state.routes[navigation.state.index];
   let title = routeName
-  
+
   if(routeName === 'Add Deck'){
     title = 'Add New Deck'
   }

@@ -38,7 +38,7 @@ class DeckList extends Component{
           {Object.keys(decks).map((key) => <DeckItem deck={decks[key]} key={key}/>)}
         </View>
         <TouchableOpacity onPress={this.deleteAll}>
-          <Text style={{color: gray}}>Delete ALL Deck</Text>
+          <Text style={{marginBottom: 10, color: gray}}>Delete ALL Deck</Text>
         </TouchableOpacity>
       </View>
     )

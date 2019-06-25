@@ -1,16 +1,35 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet,TouchableOpacity, Alert } from 'react-native'
 import {ltblue, green} from '../utils/colors'
-import { StackActions } from 'react-navigation';
+import { StackActions } from 'react-navigation'
+import { setLocalNotification, clearLocalNotification} from '../utils/api'
 
 class QuizResults extends Component{
-
-  gotoDeck = () => {
-    this.goto(1)
+  state = {
+    deck: null,
   }
 
-  gotoAllDecks = () => {
-    this.goto(2)
+  componentWillMount(){
+    const deck = this.props.navigation.getParam('deck')
+    this.setState({ deck: deck})
+    clearLocalNotification() //The user just completed a quiz, Clear the notication!
+    setLocalNotification() //Set a new notication for tomorrow. 
+  }
+
+  retakeQuiz = () => {
+    this.goto(1)
+    const pushAction = StackActions.push({
+      routeName: 'Quiz',
+      params: {
+        title: this.state.deck.title
+      },
+    })
+
+    this.props.navigation.dispatch(pushAction)
+  }
+
+  backToDeckView = () => {
+    this.goto(1)
   }
 
   goto = (n) => {
@@ -23,7 +42,8 @@ class QuizResults extends Component{
 
   render(){
     const score = this.props.navigation.getParam('score')
-    const deck = this.props.navigation.getParam('deck')
+    deck = this.state.deck
+
     const number = deck.questions.length
     const percent = Math.round((score / number) * 100)
 
@@ -43,12 +63,12 @@ class QuizResults extends Component{
           <Text style={[styles.text, {color: 'red'}]}>{score} / {number}</Text>
         </View>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={[styles.button, {backgroundColor: green}]} onPress={this.gotoDeck}>
-            <Text style={styles.buttonText}>Deck View</Text>
+          <TouchableOpacity style={[styles.button, {backgroundColor: green}]} onPress={this.retakeQuiz}>
+            <Text style={styles.buttonText}>Retake Quiz</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={[styles.button, {backgroundColor: 'blue'}]} onPress={this.gotoAllDecks}>
-            <Text style={styles.buttonText}>All Decks View</Text>
+          <TouchableOpacity style={[styles.button, {backgroundColor: deck.color}]} onPress={this.backToDeckView}>
+            <Text style={styles.buttonText}>Back to Deck</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -62,10 +82,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    marginTop: 30,
+    marginTop: 10,
     fontWeight: 'bold',
     fontSize: 30,
     marginBottom: 30,
+    textAlign: 'center',
+    marginLeft: 5,
+    marginRight: 5,
   },
   text: {
     fontWeight: 'bold',

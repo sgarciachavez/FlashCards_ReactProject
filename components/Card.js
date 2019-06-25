@@ -62,7 +62,7 @@ export default class Card extends Component{
         routeName: 'QuizResults',
         params: {
           score: this.state.correct,
-          deck: this.state.deck
+          deck: this.state.deck,
         },
       })
 
@@ -190,9 +190,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   title: {
-    marginTop: 30,
+    marginTop: 10,
     fontWeight: 'bold',
     fontSize: 30,
+    textAlign: 'center',
+    marginLeft: 5,
+    marginRight: 5,
   },
   yesno: {
     flex: 1,

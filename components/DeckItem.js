@@ -12,15 +12,6 @@ export default class DeckItem extends React.Component {
     this.rotateValue = new Animated.Value(0)
   }
 
-  onPress(){
-
-
-        //cardAction();
-    //NavigationService.navigate('DeckView', { title: this.props.deck.title })
-  }
-
-
-
   render(){
     const deck = this.props.deck
 
@@ -50,7 +41,7 @@ export default class DeckItem extends React.Component {
       }}>
 
         <Animated.View style={transformStyle} >
-          <Text style={{color: white, fontWeight: 'bold', fontSize: 18}}>{deck.title}</Text>
+          <Text style={styles.text}>{deck.title}</Text>
           <Text style={{color: white }}>{deck.questions.length} cards</Text>
         </Animated.View>
       </TouchableWithoutFeedback>
@@ -77,6 +68,13 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.30,
     shadowRadius: 4.65,
     elevation: 8,
-    //backgroundColor: this.props.deck.color
   },
+  text: {
+    color: white,
+    fontWeight: 'bold',
+    fontSize: 18,
+    textAlign: 'center',
+    marginLeft:  5,
+    marginRight: 5
+  }
 })

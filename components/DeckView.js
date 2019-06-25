@@ -93,7 +93,7 @@ class DeckView extends React.Component {
         </View>
         <View style={styles.buttonContainer}>
 
-          <TouchableOpacity style={[styles.button, {backgroundColor: ltblue}]} onPress={this.addCard}>
+          <TouchableOpacity style={[styles.button, {backgroundColor: deck !== null ? deck.color : 'blue'}]} onPress={this.addCard}>
             <Text style={styles.buttonText}>Add Card</Text>
           </TouchableOpacity>
 
@@ -119,9 +119,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   title: {
-    marginTop: 30,
+    marginTop: 15,
     fontWeight: 'bold',
     fontSize: 30,
+    marginLeft: 10,
+    marginRight: 10,
+    textAlign: 'center'
   },
   buttonContainer: {
     width:300,
